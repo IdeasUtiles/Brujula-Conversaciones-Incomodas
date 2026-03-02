@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Brújula (local) – Conversación decisiva</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">🧭</div>
+      <div>
+        <h1>Brújula</h1>
+        <p class="subtitle">Claridad para una conversación decisiva (100% local)</p>
+      </div>
+    </div>
+    <div class="header-actions">
+      <button id="btnPrivacy" class="secondary">Privacidad</button>
+      <button id="btnExport" class="primary">Exportar informe</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card" id="introCard">
+      <h2>Instrucciones rápidas</h2>
+      <ul>
+        <li>Esta app funciona <b>sin servidor</b>. Puede guardar tus respuestas en <b>este dispositivo</b> (opcional).</li>
+        <li>Si te activas mucho, <b>pausa</b> y vuelve cuando estés listo/a.</li>
+        <li>Esto no es para ganar una discusión: es para <b>aclararte</b> y llegar con propuestas concretas.</li>
+      </ul>
+
+      <div class="row">
+        <label class="check">
+          <input type="checkbox" id="saveEnabled" checked />
+          Guardar automáticamente en este dispositivo (recomendado para pausar y comparar)
+        </label>
+      </div>
+
+      <div class="row">
+        <button id="btnNew" class="primary">Empezar / Continuar</button>
+        <button id="btnClearAll" class="danger">Borrar todo</button>
+      </div>
+
+      <div class="hint">
+        Consejo: si compartes el dispositivo con otra persona, usa un perfil distinto del navegador o desactiva el guardado.
+      </div>
+    </section>
+
+    <section class="grid">
+      <section class="card">
+        <div class="card-title">
+          <h2>Tu borrador</h2>
+          <div class="muted" id="draftMeta">—</div>
+        </div>
+        <div id="draftStatus" class="muted">No hay borrador aún.</div>
+        <div class="row">
+          <button id="btnOpenDraft" class="secondary" disabled>Abrir borrador</button>
+          <button id="btnDiscardDraft" class="secondary" disabled>Descartar borrador</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="card-title">
+          <h2>Historial</h2>
+          <div class="muted" id="sessionsMeta">—</div>
+        </div>
+        <div id="sessionsList" class="list"></div>
+        <div class="row">
+          <button id="btnCompare" class="secondary" disabled>Comparar 2 sesiones</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="card" id="workspace" hidden>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="m1">M1 Radar</button>
+        <button class="tab" data-tab="m2">M2 Ciclo</button>
+        <button class="tab" data-tab="m3">M3 Lo que sí</button>
+        <button class="tab" data-tab="m4">M4 Temas</button>
+        <button class="tab" data-tab="m5">M5 Ruta</button>
+        <button class="tab" data-tab="m6">M6 Guion</button>
+      </div>
+
+      <form id="form">
+        <!-- M1 -->
+        <section class="tab-panel" id="tab-m1">
+          <h2>M1. Radar rápido</h2>
+          <p class="muted">Escalas 0–10. 0 = nada / 10 = muchísimo.</p>
+
+          <div class="grid2">
+            <div class="field">
+              <label>Deseo de seguir (hoy)</label>
+              <input type="range" min="0" max="10" step="1" name="m1_desire" />
+              <div class="range-value" data-for="m1_desire"></div>
+            </div>
+
+            <div class="field">
+              <label>Confianza en que esto mejore</label>
+              <input type="range" min="0" max="10" step="1" name="m1_hope" />
+              <div class="range-value" data-for="m1_hope"></div>
+            </div>
+
+            <div class="field">
+              <label>Cansancio emocional</label>
+              <input type="range" min="0" max="10" step="1" name="m1_fatigue" />
+              <div class="range-value" data-for="m1_fatigue"></div>
+            </div>
+
+            <div class="field">
+              <label>Nivel de activación (ahora mismo)</label>
+              <input type="range" min="0" max="10" step="1" name="m1_activation" />
+              <div class="range-value" data-for="m1_activation"></div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Mi miedo principal hoy</label>
+            <select name="m1_main_fear">
+              <option value="">— elige —</option>
+              <option>Incertidumbre</option>
+              <option>Bienestar del niño</option>
+              <option>Exposición / humillación pública</option>
+              <option>Soledad</option>
+              <option>Pérdida de estabilidad económica</option>
+              <option>Repetir el caos del pasado</option>
+              <option>Otro</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>En una frase: ¿qué necesito que pase para que tenga sentido intentar?</label>
+            <textarea name="m1_need_phrase" rows="3" placeholder="Escribe una frase concreta, sin insultos, sin generalizaciones."></textarea>
+          </div>
+
+          <div class="field">
+            <label>En una frase: ¿qué estoy dispuesto/a a hacer yo?</label>
+            <textarea name="m1_offer_phrase" rows="3" placeholder="Algo que dependa de ti, observable."></textarea>
+          </div>
+        </section>
+
+        <!-- M2 -->
+        <section class="tab-panel" id="tab-m2" hidden>
+          <h2>M2. El ciclo que nos mantiene mal</h2>
+          <p class="muted">Describe el patrón. La idea es ver cómo se mantiene el problema, no “quién es el culpable”.</p>
+
+          <div class="field">
+            <label>Versión corta del ciclo (rellena los huecos)</label>
+            <textarea name="m2_cycle" rows="4"
+              placeholder="Cuando yo hago ___, la otra persona hace ___, entonces pasa ___, y yo termino haciendo ___ (y se repite)."></textarea>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label>Mi intento de solución que empeora las cosas</label>
+              <textarea name="m2_my_wrong_solution" rows="3" placeholder="Ej.: presionar / retirarme / callarme / ironizar / revisar redes…"></textarea>
+            </div>
+            <div class="field">
+              <label>Qué sería un movimiento distinto (pequeño) que puedo probar</label>
+              <textarea name="m2_my_small_move" rows="3" placeholder="Ej.: pedir con hora y plan / proponer pausa / hablar en términos de propuesta…"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- M3 -->
+        <section class="tab-panel" id="tab-m3" hidden>
+          <h2>M3. Lo que sí funcionó</h2>
+          <p class="muted">Esto no borra lo difícil. Solo evita que la conversación sea una demolición.</p>
+
+          <div class="grid2">
+            <div class="field">
+              <label>3 cosas por las que puedo estar agradecido/a</label>
+              <textarea name="m3_gratitude" rows="5" placeholder="1)… 2)… 3)…"></textarea>
+            </div>
+            <div class="field">
+              <label>3 aprendizajes personales (aunque duela)</label>
+              <textarea name="m3_learning" rows="5" placeholder="1)… 2)… 3)…"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Una cualidad del otro que reconozco (sin sarcasmo)</label>
+            <textarea name="m3_quality" rows="2"></textarea>
+          </div>
+        </section>
+
+        <!-- M4 -->
+        <section class="tab-panel" id="tab-m4" hidden>
+          <h2>M4. Temas ineludibles</h2>
+          <p class="muted">Por cada tema: gravedad, necesidad, oferta, propuesta y límite.</p>
+
+          <div id="topics"></div>
+        </section>
+
+        <!-- M5 -->
+        <section class="tab-panel" id="tab-m5" hidden>
+          <h2>M5. Ruta (decisión o plan de transición)</h2>
+          <p class="muted">Puedes elegir una ruta hoy o dejar condiciones para decidir.</p>
+
+          <div class="field">
+            <label>Ruta que hoy veo más realista</label>
+            <select name="m5_route">
+              <option value="">— elige —</option>
+              <option value="separacion">Separación</option>
+              <option value="pausa">Pausa estructurada (con reglas y calendario)</option>
+              <option value="reintento">Reintento condicionado (con compromisos verificables)</option>
+              <option value="no_se">No lo sé todavía</option>
+            </select>
+          </div>
+
+          <div class="grid2">
+            <div class="field">
+              <label>3 compromisos que pediría al otro (observables)</label>
+              <textarea name="m5_ask" rows="5" placeholder="1)… 2)… 3)…"></textarea>
+            </div>
+            <div class="field">
+              <label>3 compromisos que ofrezco yo (observables)</label>
+              <textarea name="m5_give" rows="5" placeholder="1)… 2)… 3)…"></textarea>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Calendario sugerido (ej.: 4 semanas con 2 puntos de evaluación)</label>
+            <textarea name="m5_calendar" rows="4" placeholder="Ej.: Semana 1: … / Semana 2: … / Semana 4: evaluación final…"></textarea>
+          </div>
+
+          <div class="field">
+            <label>Si esto no se cumple, ¿qué haré? (límite y acción)</label>
+            <textarea name="m5_if_not" rows="3" placeholder="Ej.: si no hay terapia en 2 semanas, activamos pausa o separación."></textarea>
+          </div>
+        </section>
+
+        <!-- M6 -->
+        <section class="tab-panel" id="tab-m6" hidden>
+          <h2>M6. Guion de conversación</h2>
+          <p class="muted">Un orden sugerido para no caer en reproches infinitos.</p>
+
+          <ol class="script">
+            <li><b>10 min</b>: reconocimiento breve de lo que sí funcionó (1–2 frases cada uno).</li>
+            <li><b>20 min</b>: cada uno expone sus 3 temas ineludibles (sin interrumpir, sin debatir).</li>
+            <li><b>20 min</b>: cada uno hace propuestas (no quejas). “Necesito / ofrezco / propongo / mi límite”.</li>
+            <li><b>10 min</b>: eligen una ruta (separación / pausa / reintento) o el siguiente paso con fecha.</li>
+            <li><b>Cierre</b>: un acuerdo mínimo para proteger al niño (no usarlo de mensajero, no discutir delante de él).</li>
+          </ol>
+
+          <div class="field">
+            <label>Mi frase de pausa (si me activo)</label>
+            <textarea name="m6_pause" rows="2">Ahora mismo me estoy activando. Propongo una pausa de 20 minutos y retomamos a las ____.</textarea>
+          </div>
+        </section>
+
+        <div class="footer-bar">
+          <div class="muted" id="autosaveStatus">Autosave: —</div>
+          <div class="row">
+            <button type="button" id="btnSaveDraft" class="secondary">Guardar borrador</button>
+            <button type="button" id="btnFinish" class="primary">Finalizar y guardar sesión</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <section class="card" id="compareCard" hidden>
+      <h2>Comparación</h2>
+      <div class="muted">Selecciona 2 sesiones desde el historial y pulsa “Comparar 2 sesiones”.</div>
+      <div id="compareOutput"></div>
+      <div class="row">
+        <button id="btnCloseCompare" class="secondary">Cerrar</button>
+      </div>
+    </section>
+
+    <!-- Privacy modal -->
+    <dialog id="privacyDialog">
+      <h2>Privacidad (100% local)</h2>
+      <p>
+        Esta app no envía tus respuestas a ningún servidor. Si activas el guardado, se guardan <b>en tu navegador</b> (este dispositivo).
+      </p>
+      <ul>
+        <li>Si otra persona usa este mismo dispositivo/perfil del navegador, podría verlas.</li>
+        <li>Puedes desactivar el guardado o borrar todo cuando quieras.</li>
+        <li>“Exportar informe” genera un documento en tu equipo. Compártelo solo si tú quieres.</li>
+      </ul>
+      <div class="row">
+        <button id="btnClosePrivacy" class="primary">Entendido</button>
+      </div>
+    </dialog>
+
+  </main>
+
+  <template id="topicTemplate">
+    <details class="topic">
+      <summary>
+        <span class="topic-name"></span>
+        <span class="pill"><span class="topic-score">—</span>/10</span>
+      </summary>
+      <div class="topic-body">
+        <div class="field">
+          <label>Gravedad para mí (0–10)</label>
+          <input type="range" min="0" max="10" step="1" class="topicRange" />
+          <div class="range-value topicRangeValue"></div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>Qué necesito</label>
+            <textarea class="topicNeed" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>Qué ofrezco</label>
+            <textarea class="topicOffer" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="grid2">
+          <div class="field">
+            <label>Mi propuesta concreta (acción / frecuencia / regla)</label>
+            <textarea class="topicProposal" rows="3"></textarea>
+          </div>
+          <div class="field">
+            <label>Mi límite (qué no acepto y qué haré)</label>
+            <textarea class="topicLimit" rows="3"></textarea>
+          </div>
+        </div>
+        <div class="field">
+          <label>Pregunta para el terapeuta / para la sesión</label>
+          <textarea class="topicTherapy" rows="2"></textarea>
+        </div>
+      </div>
+    </details>
+  </template>
+
+  <script src="./app.js"></script>
+</body>
+</html>
