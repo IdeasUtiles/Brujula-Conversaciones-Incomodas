@@ -255,7 +255,7 @@ function buildTopicsUI(){
   }
 }
 
-function touchDraft(){(){
+function touchDraft(){
   if(!state.draft) return;
   state.draft.updatedAt = nowISO();
   // Persist if enabled
