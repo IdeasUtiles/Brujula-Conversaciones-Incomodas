@@ -12,7 +12,7 @@
 *{box-sizing:border-box}
 body{
   margin:0;
-  font-size: 18px;
+  font-size: 22px;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: linear-gradient(180deg, #0b0d12, #0b0d12 35%, #0d1120);
   color:var(--text);
@@ -121,3 +121,10 @@ dialog{
 
 .module-nav{margin-bottom:12px}
 .module-nav h3{color:#dbe4f7}
+
+input, textarea, select{font-size:1em}
+label{font-size:1em}
+.tab{font-size:0.95em}
+
+button{transition: transform 0.03s ease, filter 0.12s ease}
+button:active{transform: scale(0.98); filter: brightness(1.12)}
