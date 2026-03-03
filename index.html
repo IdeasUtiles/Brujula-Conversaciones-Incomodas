@@ -87,8 +87,8 @@
       <form id="form">
         <!-- M1 -->
         <section class="tab-panel" id="tab-m1">
-          <h2>M1. Radar rápido</h2>
-<div class="module-intro"><p><b>Para qué sirve:</b> ubicarte hoy (sin justificarte). Te ayudará a ver cambios con el tiempo.</p><ul><li>Mueve las barras de 0 a 10.</li><li>Responde pensando en <b>hoy</b>, no en “cómo debería ser”.</li></ul></div>
+          <h2>M1. El Radar</h2>
+<div class="module-intro"><p><b>¿Qué significa M?</b> M significa <b>Módulo</b>.</p><p>De acuerdo a como está hoy la relación, califica tus deseos y tu estado emocional según sea el caso.</p><ul><li>Puedes responder incompleto y continuar.</li><li>Responde pensando en <b>hoy</b>.</li></ul></div>
           <p class="muted">Escalas 0–10. 0 = nada / 10 = muchísimo.</p>
 
           <div class="grid2">
@@ -111,7 +111,7 @@
             </div>
 
             <div class="field">
-              <label>Nivel de alteración emocional (miedo, rabia o tristeza)</label>
+              <label>Nivel de alteración emocional (Tristeza, miedo, rabia, confusión)</label>
               <input type="range" min="0" max="10" step="1" name="m1_activation" />
               <div class="range-value" data-for="m1_activation"></div>
             </div>
@@ -150,8 +150,9 @@
 
           <div class="field">
             <label>Versión corta del ciclo (rellena los huecos)</label>
-            <textarea name="m2_cycle" rows="4"
-              placeholder="Cuando yo hago ___, la otra persona hace ___, entonces pasa ___, y yo termino haciendo ___ (y se repite)."></textarea>
+            <p class="muted small-note" style="margin:6px 0 0 0">Guía: <b>Cuando yo hago ___</b>, la otra persona hace ___, entonces pasa ___, y yo termino haciendo ___ (y se repite).</p>
+<textarea name="m2_cycle" rows="4"
+              placeholder="Escribe aquí tu versión (sin “siempre / nunca”)."></textarea>
           </div>
 
           <div class="grid2">
@@ -168,8 +169,8 @@
 
         <!-- M3 -->
         <section class="tab-panel" id="tab-m3" hidden>
-          <h2>M3. Lo que sí funcionó</h2>
-<div class="module-intro"><p><b>Para qué sirve:</b> rescatar lo valioso sin negar lo difícil.</p><ul><li>Esto baja la hostilidad y ayuda a hablar con más claridad.</li></ul></div>
+          <h2>M3. Lo que sí funcionó en esta relación</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> rescatar lo valioso sin negar lo difícil.</p><ul><li></li></ul></div>
           <p class="muted">Esto no borra lo difícil. Solo evita que la conversación sea una demolición.</p>
 
           <div class="grid2">
@@ -184,14 +185,15 @@
           </div>
 
           <div class="field">
-            <label>Una cualidad del otro que reconozco (sin sarcasmo)</label>
-            <textarea name="m3_quality" rows="2"></textarea>
+            <label>Tres cualidades del otro que reconozco (sin sarcasmo)</label>
+            <textarea name="m3_quality" rows="4" placeholder="1)… 2)… 3)…"></textarea>
           </div>
         </section>
 
         <!-- M4 -->
         <section class="tab-panel" id="tab-m4" hidden>
           <h2>M4. Temas ineludibles</h2>
+          <p class="muted small-note">Haz clic en cada tema para desplegar las preguntas.</p>
 <div class="module-intro"><p><b>Para qué sirve:</b> aterrizar los temas que no pueden seguir debajo de la alfombra.</p><ul><li>Cada tema tiene preguntas específicas.</li><li>Responde para ti, no para convencer al otro.</li></ul></div>
           <p class="muted">Por cada tema: gravedad, necesidad, oferta, propuesta y límite.</p>
 
@@ -201,6 +203,7 @@
         <!-- M5 -->
         <section class="tab-panel" id="tab-m5" hidden>
           <h2>M5. Ruta (decisión o plan de transición)</h2>
+          <p class="muted small-note">Importante: los compromisos que propongas deben ser <b>consecuentes con la ruta</b> que elijas.</p>
 <div class="module-intro"><p><b>Para qué sirve:</b> elegir una ruta o dejar condiciones claras para decidir.</p><ul><li>Si eliges “pausa”, define reglas y fechas de evaluación.</li></ul></div>
           <p class="muted">Puedes elegir una ruta hoy o dejar condiciones para decidir.</p>
 
@@ -297,6 +300,16 @@
         <button id="btnClosePrivacy" class="primary">Entendido</button>
       </div>
     </dialog>
+    <dialog id="missingDialog">
+      <h2>Te faltan algunas respuestas</h2>
+      <p class="muted">No pasa nada si decides continuar. Solo revisa lo que dejaste en blanco y por qué puede ser útil completarlo.</p>
+      <div id="missingList" class="list" style="margin-top:10px"></div>
+      <div class="row">
+        <button id="btnGoBackMissing" class="secondary">Volver a completar</button>
+        <button id="btnContinueMissing" class="primary">Contestar más tarde</button>
+      </div>
+    </dialog>
+
 
   </main>
 
