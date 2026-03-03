@@ -810,3 +810,153 @@ btnPrev.addEventListener("click", () => {
     goTab(nextKey);
   }
 });
+
+// Navigation + gentle reminders (robust)
+(function initNavigation(){
+  const TAB_KEYS = ["m1","m2","m3","m4","m5","m6"];
+
+  const missingDialog = document.getElementById("missingDialog");
+  const missingList = document.getElementById("missingList");
+  const btnGoBackMissing = document.getElementById("btnGoBackMissing");
+  const btnContinueMissing = document.getElementById("btnContinueMissing");
+
+  function currentTabKey(){
+    const active = document.querySelector(".tab.active");
+    return active ? active.dataset.tab : "m1";
+  }
+
+  function goTab(key){
+    activateTab(key);
+    window.scrollTo({top:0, behavior:"smooth"});
+  }
+
+  function collectMissingForTab(tabKey){
+    const missing = [];
+    const f = state.draft ? (state.draft.fields || {}) : getFormData();
+    const isBlank = (k) => !String(f[k] ?? "").trim();
+    const add = (label, why) => missing.push({label, why});
+
+    if(tabKey === "m1"){
+      const items = [
+        ["Deseo de seguir", "m1_desire", "Te ayuda a ubicarte hoy."],
+        ["Confianza en que mejore", "m1_hope", "Aclara si estás en modo esperanza o despedida."],
+        ["Cansancio emocional", "m1_fatigue", "Sirve para no exigir más de lo posible."],
+        ["Alteración emocional", "m1_activation", "Si está alta, conviene pausar o acortar."],
+        ["Miedo principal", "m1_main_fear", "Pone nombre a lo que realmente te mueve."],
+        ["Necesito que pase", "m1_need_phrase", "Convierte el reclamo en necesidad concreta."],
+        ["Estoy dispuesto/a a hacer", "m1_offer_phrase", "Evita dejar todo en manos del otro."],
+      ];
+      for(const [label,k,why] of items){ if(isBlank(k)) add(label, why); }
+    }
+
+    if(tabKey === "m2"){
+      const items = [
+        ["Ciclo (cuando yo hago…)", "m2_cycle", "Ver el patrón reduce discusiones circulares."],
+        ["Mi intento de solución que empeora", "m2_my_wrong_solution", "Detectarlo rompe el mantenimiento del problema."],
+        ["Mi movimiento distinto (pequeño)", "m2_my_small_move", "Define un cambio realista que dependa de ti."],
+      ];
+      for(const [label,k,why] of items){ if(isBlank(k)) add(label, why); }
+    }
+
+    if(tabKey === "m3"){
+      const items = [
+        ["Agradecimientos", "m3_gratitude", "Te conecta con lo valioso."],
+        ["Aprendizajes", "m3_learning", "Te centra en tu aprendizaje."],
+        ["Tres cualidades", "m3_quality", "Aporta humanidad a la conversación."],
+      ];
+      for(const [label,k,why] of items){ if(isBlank(k)) add(label, why); }
+    }
+
+    if(tabKey === "m4"){
+      for(const t of DEFAULT_TOPICS){
+        const d = state.draft?.topics?.[t.id];
+        if(!d) continue;
+        const empty = (Number(d.q1 ?? 0) === 0) &&
+                      (Number(d.q2 ?? 0) === 0) &&
+                      (!String(d.q3 ?? "").trim()) &&
+                      (!String(d.q4 ?? "").trim());
+        if(empty){
+          add(t.name, "Este tema suele generar conflicto si queda sin hablar.");
+        }
+      }
+    }
+
+    if(tabKey === "m5"){
+      const items = [
+        ["Ruta elegida", "m5_route", "Define hacia dónde va la conversación."],
+        ["Compromisos que pediría", "m5_ask", "Aclara tus condiciones."],
+        ["Compromisos que ofrezco", "m5_give", "Equilibra: pedir y ofrecer."],
+        ["Calendario", "m5_calendar", "Sin fechas, todo se vuelve promesa difusa."],
+        ["Si no se cumple…", "m5_if_not", "Define límites y reduce incertidumbre."],
+      ];
+      for(const [label,k,why] of items){ if(isBlank(k)) add(label, why); }
+    }
+
+    if(tabKey === "m6"){
+      if(isBlank("m6_pause")){
+        add("Frase de pausa", "Te protege cuando sube la alteración emocional.");
+      }
+    }
+
+    return missing;
+  }
+
+  function showMissingDialog(missing, onBack, onContinue){
+    if(!missingDialog || !missingList || !btnContinueMissing || !btnGoBackMissing){
+      const ok = confirm("Hay respuestas sin completar. Puedes seguir, pero entre más completo lo contestes, más elementos tendrás. ¿Continuar?");
+      if(ok) onContinue?.(); else onBack?.();
+      return;
+    }
+    missingList.innerHTML = "";
+    for(const item of missing){
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `<div class="meta"><b>${item.label}</b><span>${item.why}</span></div>`;
+      missingList.appendChild(div);
+    }
+    const cleanup = () => {
+      btnGoBackMissing.onclick = null;
+      btnContinueMissing.onclick = null;
+    };
+    btnGoBackMissing.onclick = () => { cleanup(); missingDialog.close(); onBack?.(); };
+    btnContinueMissing.onclick = () => { cleanup(); missingDialog.close(); onContinue?.(); };
+    missingDialog.showModal();
+  }
+
+  function bind(){
+    const btnPrev = document.getElementById("btnPrev");
+    const btnNext = document.getElementById("btnNext");
+    if(btnPrev){
+      btnPrev.onclick = () => {
+        const k = currentTabKey();
+        const idx = TAB_KEYS.indexOf(k);
+        if(idx > 0) goTab(TAB_KEYS[idx-1]);
+      };
+    }
+    if(btnNext){
+      btnNext.onclick = () => {
+        const k = currentTabKey();
+        const idx = TAB_KEYS.indexOf(k);
+        if(idx < 0 || idx >= TAB_KEYS.length-1) return;
+
+        if(state.draft){
+          state.draft.fields = getFormData();
+        }
+
+        const missing = collectMissingForTab(k);
+        const nextKey = TAB_KEYS[idx+1];
+
+        if(missing.length){
+          showMissingDialog(missing, () => goTab(k), () => goTab(nextKey));
+        }else{
+          goTab(nextKey);
+        }
+      };
+    }
+  }
+
+  // Bind now and after opening draft
+  bind();
+  document.getElementById("btnNew")?.addEventListener("click", ()=> setTimeout(bind, 50));
+  document.getElementById("btnOpenDraft")?.addEventListener("click", ()=> setTimeout(bind, 50));
+})(); 

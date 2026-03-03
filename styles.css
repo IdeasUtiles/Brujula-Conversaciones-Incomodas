@@ -118,3 +118,6 @@ dialog{
   .app-header{position:static}
   button{padding:12px 14px}
 }
+
+.module-nav{margin-bottom:12px}
+.module-nav h3{color:#dbe4f7}
