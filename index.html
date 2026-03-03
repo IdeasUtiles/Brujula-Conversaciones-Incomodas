@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Brújula (local) – Conversación decisiva</title>
+  <title>Brújula (local) – Conversaciones incómodas</title>
   <link rel="stylesheet" href="./styles.css" />
 </head>
 <body>
@@ -12,7 +12,7 @@
       <div class="logo">🧭</div>
       <div>
         <h1>Brújula</h1>
-        <p class="subtitle">Claridad para una conversación decisiva (100% local)</p>
+        <p class="subtitle">Claridad para conversaciones incómodas (100% local)</p>
       </div>
     </div>
     <div class="header-actions">
@@ -24,6 +24,7 @@
   <main class="container">
     <section class="card" id="introCard">
       <h2>Instrucciones rápidas</h2>
+      <p class="lead">Las parejas llegan a un momento en que es necesario enfrentarse a la verdad de las emociones y sentimientos. Y aunque duela, es mejor saber a qué enfrentarnos en lugar de disfrazar, esconder o suponer las verdades propias y de la otra persona. Intenta ser lo más honesta(o) respondiendo estas preguntas. Son sólo para ti, y para que organices ideas y sentimientos de cara a las conversaciones incómodas que hay que tener en la relación.</p>
       <ul>
         <li>Esta app funciona <b>sin servidor</b>. Puede guardar tus respuestas en <b>este dispositivo</b> (opcional).</li>
         <li>Si te activas mucho, <b>pausa</b> y vuelve cuando estés listo/a.</li>
@@ -39,6 +40,7 @@
 
       <div class="row">
         <button id="btnNew" class="primary">Empezar / Continuar</button>
+        <span class="muted small-note">Al pulsar, baja automáticamente al cuestionario.</span>
         <button id="btnClearAll" class="danger">Borrar todo</button>
       </div>
 
@@ -74,18 +76,19 @@
 
     <section class="card" id="workspace" hidden>
       <div class="tabs" role="tablist">
-        <button class="tab active" data-tab="m1">M1 Radar</button>
-        <button class="tab" data-tab="m2">M2 Ciclo</button>
-        <button class="tab" data-tab="m3">M3 Lo que sí</button>
-        <button class="tab" data-tab="m4">M4 Temas</button>
-        <button class="tab" data-tab="m5">M5 Ruta</button>
-        <button class="tab" data-tab="m6">M6 Guion</button>
+        <button class="tab active" data-tab="m1">Radar emocional</button>
+        <button class="tab" data-tab="m2">El ciclo</button>
+        <button class="tab" data-tab="m3">Lo que sí funciona</button>
+        <button class="tab" data-tab="m4">Temas clave</button>
+        <button class="tab" data-tab="m5">Rutas posibles</button>
+        <button class="tab" data-tab="m6">Guion de conversación</button>
       </div>
 
       <form id="form">
         <!-- M1 -->
         <section class="tab-panel" id="tab-m1">
           <h2>M1. Radar rápido</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> ubicarte hoy (sin justificarte). Te ayudará a ver cambios con el tiempo.</p><ul><li>Mueve las barras de 0 a 10.</li><li>Responde pensando en <b>hoy</b>, no en “cómo debería ser”.</li></ul></div>
           <p class="muted">Escalas 0–10. 0 = nada / 10 = muchísimo.</p>
 
           <div class="grid2">
@@ -108,7 +111,7 @@
             </div>
 
             <div class="field">
-              <label>Nivel de activación (ahora mismo)</label>
+              <label>Nivel de alteración emocional (miedo, rabia o tristeza)</label>
               <input type="range" min="0" max="10" step="1" name="m1_activation" />
               <div class="range-value" data-for="m1_activation"></div>
             </div>
@@ -142,6 +145,7 @@
         <!-- M2 -->
         <section class="tab-panel" id="tab-m2" hidden>
           <h2>M2. El ciclo que nos mantiene mal</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> describir el patrón que mantiene el problema.</p><ul><li>No es para culpar, es para entender <b>cómo se alimenta</b> el conflicto.</li><li>Busca frases concretas, sin “siempre / nunca”.</li></ul></div>
           <p class="muted">Describe el patrón. La idea es ver cómo se mantiene el problema, no “quién es el culpable”.</p>
 
           <div class="field">
@@ -165,6 +169,7 @@
         <!-- M3 -->
         <section class="tab-panel" id="tab-m3" hidden>
           <h2>M3. Lo que sí funcionó</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> rescatar lo valioso sin negar lo difícil.</p><ul><li>Esto baja la hostilidad y ayuda a hablar con más claridad.</li></ul></div>
           <p class="muted">Esto no borra lo difícil. Solo evita que la conversación sea una demolición.</p>
 
           <div class="grid2">
@@ -187,6 +192,7 @@
         <!-- M4 -->
         <section class="tab-panel" id="tab-m4" hidden>
           <h2>M4. Temas ineludibles</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> aterrizar los temas que no pueden seguir debajo de la alfombra.</p><ul><li>Cada tema tiene preguntas específicas.</li><li>Responde para ti, no para convencer al otro.</li></ul></div>
           <p class="muted">Por cada tema: gravedad, necesidad, oferta, propuesta y límite.</p>
 
           <div id="topics"></div>
@@ -195,6 +201,7 @@
         <!-- M5 -->
         <section class="tab-panel" id="tab-m5" hidden>
           <h2>M5. Ruta (decisión o plan de transición)</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> elegir una ruta o dejar condiciones claras para decidir.</p><ul><li>Si eliges “pausa”, define reglas y fechas de evaluación.</li></ul></div>
           <p class="muted">Puedes elegir una ruta hoy o dejar condiciones para decidir.</p>
 
           <div class="field">
@@ -233,6 +240,7 @@
         <!-- M6 -->
         <section class="tab-panel" id="tab-m6" hidden>
           <h2>M6. Guion de conversación</h2>
+<div class="module-intro"><p><b>Para qué sirve:</b> tener un orden para hablar sin quedar atrapados en reproches.</p><ul><li>Si la conversación se calienta, usa una pausa y define dónde se queda para retomar sin empezar de cero.</li></ul></div>
           <p class="muted">Un orden sugerido para no caer en reproches infinitos.</p>
 
           <ol class="script">
@@ -245,15 +253,21 @@
 
           <div class="field">
             <label>Mi frase de pausa (si me activo)</label>
-            <textarea name="m6_pause" rows="2">Ahora mismo me estoy activando. Propongo una pausa de 20 minutos y retomamos a las ____.</textarea>
+            <textarea name="m6_pause" rows="2">Me estoy empezando a alterar emocionalmente (por miedo, rabia o tristeza) y no quiero que esto me quite capacidad de explicar mi punto de vista adecuadamente o la valoración de tus puntos de vista. Propongo una pausa de 20 minutos y retomamos a las ____ o el día ____. Antes de pausar, dejemos claro en qué punto dejamos la conversación para no empezar de cero cuando se reanude.</textarea>
           </div>
         </section>
 
+        
         <div class="footer-bar">
-          <div class="muted" id="autosaveStatus">Autosave: —</div>
+          <div>
+            <div class="muted" id="autosaveStatus">Autosave: —</div>
+            <div class="muted small-note">“Guardar y seguir” mantiene tu borrador. “Guardar en historial” crea una sesión con fecha para comparar después.</div>
+          </div>
           <div class="row">
-            <button type="button" id="btnSaveDraft" class="secondary">Guardar borrador</button>
-            <button type="button" id="btnFinish" class="primary">Finalizar y guardar sesión</button>
+            <button type="button" id="btnPrev" class="secondary">Anterior</button>
+            <button type="button" id="btnNext" class="secondary">Siguiente</button>
+            <button type="button" id="btnSaveDraft" class="secondary">Guardar y seguir</button>
+            <button type="button" id="btnFinish" class="primary">Guardar en historial</button>
           </div>
         </div>
       </form>
@@ -286,7 +300,7 @@
 
   </main>
 
-  <template id="topicTemplate">
+    <template id="topicTemplate">
     <details class="topic">
       <summary>
         <span class="topic-name"></span>
@@ -294,33 +308,22 @@
       </summary>
       <div class="topic-body">
         <div class="field">
-          <label>Gravedad para mí (0–10)</label>
-          <input type="range" min="0" max="10" step="1" class="topicRange" />
-          <div class="range-value topicRangeValue"></div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label>Qué necesito</label>
-            <textarea class="topicNeed" rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label>Qué ofrezco</label>
-            <textarea class="topicOffer" rows="3"></textarea>
-          </div>
-        </div>
-        <div class="grid2">
-          <div class="field">
-            <label>Mi propuesta concreta (acción / frecuencia / regla)</label>
-            <textarea class="topicProposal" rows="3"></textarea>
-          </div>
-          <div class="field">
-            <label>Mi límite (qué no acepto y qué haré)</label>
-            <textarea class="topicLimit" rows="3"></textarea>
-          </div>
+          <label class="q1Label"></label>
+          <input type="range" min="0" max="10" step="1" class="q1Range" />
+          <div class="range-value q1Value"></div>
         </div>
         <div class="field">
-          <label>Pregunta para el terapeuta / para la sesión</label>
-          <textarea class="topicTherapy" rows="2"></textarea>
+          <label class="q2Label"></label>
+          <input type="range" min="0" max="10" step="1" class="q2Range" />
+          <div class="range-value q2Value"></div>
+        </div>
+        <div class="field q3Block">
+          <label class="q3Label"></label>
+          <textarea class="q3Text" rows="3"></textarea>
+        </div>
+        <div class="field q4Block">
+          <label class="q4Label"></label>
+          <textarea class="q4Text" rows="3"></textarea>
         </div>
       </div>
     </details>

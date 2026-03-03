@@ -3,15 +3,78 @@
 const STORAGE_KEY = "brujula_v1";
 
 const DEFAULT_TOPICS = [
-  { id:"sexo", name:"Intimidad y sexualidad" },
-  { id:"tiempo", name:"Tiempo de pareja vs tiempo familiar" },
-  { id:"crianza", name:"Crianza, valores y educación del hijo" },
-  { id:"dinero", name:"Dinero y transparencia" },
-  { id:"familia", name:"Familias extensas y límites" },
-  { id:"reputacion", name:"Exposición pública y reputación" },
-  { id:"proyectos", name:"Proyectos profesionales y apoyo" },
-  { id:"confianza", name:"Confianza y herida del pasado" },
-  { id:"salud", name:"Salud emocional, estrés y alcohol ocasional" },
+  {
+    "id": "sexo",
+    "name": "Intimidad y sexualidad",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí mejorar la intimidad (sexual y afectiva) en la relación?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a hacer cambios concretos para que la intimidad sea posible (sin presión ni evitación)?",
+    "q3": "¿Qué necesitaría para que la intimidad sea más probable y agradable (contexto, tiempo, salud, conversación, seguridad emocional)?",
+    "q4": "Mi propuesta mínima para el próximo mes (algo específico y realista)."
+  },
+  {
+    "id": "tiempo",
+    "name": "Tiempo de pareja vs tiempo familiar",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí tener tiempo de pareja (sin niño) de forma regular?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a reservar y proteger ese tiempo (agenda, acuerdos, límites con trabajo)?",
+    "q3": "¿Cómo se vería para mí “tiempo de calidad” en pareja (frecuencia y forma)?",
+    "q4": "Mi propuesta concreta para las próximas 2 semanas."
+  },
+  {
+    "id": "crianza",
+    "name": "Crianza, valores y educación del hijo",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí que estemos alineados en valores y normas de crianza?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a negociar acuerdos (aunque no piense igual)?",
+    "q3": "¿Qué 3 acuerdos mínimos necesitamos para que el niño esté bien (rutinas, límites, valores, religión, colegio…)?",
+    "q4": "¿Qué tema de crianza NO podemos seguir evitando?"
+  },
+  {
+    "id": "dinero",
+    "name": "Dinero y transparencia",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí tener claridad sobre el origen y el destino de los ingresos que sostienen la vida familiar?",
+    "q2": "De 0 a 10: Estoy dispuesto/a a ser transparente con el otro sobre cómo gestiono, invierto o gasto mi dinero.",
+    "q3": "¿Cómo me gustaría que fuera la gestión del dinero en casa (reglas, responsabilidades, acceso a info, acuerdos)?",
+    "q4": "Mi primer paso concreto para ordenar este tema (en 7 días)."
+  },
+  {
+    "id": "familia",
+    "name": "Familias extensas y límites",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí que haya límites sanos con la familia extensa?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a poner límites (aunque incomode)?",
+    "q3": "¿Qué límites necesitamos (visitas, comentarios, decisiones sobre el niño, confidencialidad)?",
+    "q4": "Mi frase o acción concreta para marcar un límite."
+  },
+  {
+    "id": "reputacion",
+    "name": "Exposición pública y reputación",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí proteger la intimidad de la relación frente a rumores/redes/terceros?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a cuidar lo que digo o hago en público para no dañar al otro?",
+    "q3": "¿Qué reglas mínimas necesitamos sobre redes, rumores y terceros (qué sí / qué no)?",
+    "q4": "Mi propuesta para manejar una crisis pública (paso 1, 2, 3)."
+  },
+  {
+    "id": "proyectos",
+    "name": "Proyectos profesionales y apoyo",
+    "q1": "De 0 a 10: ¿qué tan importante es para mí sentir apoyo real a mi proyecto profesional?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a apoyar el proyecto del otro sin sentirme abandonado/a?",
+    "q3": "¿Qué necesito del otro para sentir apoyo (con ejemplos concretos)?",
+    "q4": "Mi propuesta de equilibrio trabajo–familia para el próximo mes."
+  },
+  {
+    "id": "confianza",
+    "name": "Confianza y herida del pasado",
+    "q1": "De 0 a 10: ¿qué tan presente está hoy la herida del pasado en mi manera de relacionarme?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a construir reparación (sin negar lo que pasó)?",
+    "q3": "¿Qué necesitaría para sentir reparación y seguridad (conductas, acuerdos, tiempo)?",
+    "q4": "Mi propuesta concreta para reducir miedo y rencor (próximas 2 semanas)."
+  },
+  {
+    "id": "salud",
+    "name": "Salud emocional, estrés y alcohol ocasional",
+    "q1": "De 0 a 10: ¿qué tanto afecta el estrés (o el alcohol ocasional) a la forma en que nos tratamos?",
+    "q2": "De 0 a 10: ¿qué tan dispuesto/a estoy a aplicar un “protocolo” cuando me altero emocionalmente?",
+    "q3": "¿Cuál sería nuestro protocolo mínimo cuando sube el tono (pausa, hora de retomar, no discutir con alcohol, etc.)?",
+    "q4": "Mi compromiso personal para regularme mejor (algo observable)."
+  }
 ];
 
 function nowISO(){
@@ -71,6 +134,8 @@ const btnCloseCompare = document.getElementById("btnCloseCompare");
 const autosaveStatus = document.getElementById("autosaveStatus");
 const btnSaveDraft = document.getElementById("btnSaveDraft");
 const btnFinish = document.getElementById("btnFinish");
+const btnPrev = document.getElementById("btnPrev");
+const btnNext = document.getElementById("btnNext");
 
 const topicsContainer = document.getElementById("topics");
 const topicTemplate = document.getElementById("topicTemplate");
@@ -81,7 +146,7 @@ function ensureTopicsInDraft(draft){
   if(!draft.topics) draft.topics = {};
   for(const t of DEFAULT_TOPICS){
     if(!draft.topics[t.id]){
-      draft.topics[t.id] = { score: 0, need:"", offer:"", proposal:"", limit:"", therapy:"" };
+      draft.topics[t.id] = { q1: 0, q2: 0, q3:"", q4:"" };
     }
   }
 }
@@ -124,14 +189,15 @@ function setFormData(draft){
     if(!data) continue;
     const root = document.querySelector(`[data-topic="${t.id}"]`);
     if(!root) continue;
-    root.querySelector(".topicRange").value = data.score ?? 0;
-    root.querySelector(".topicRangeValue").textContent = (data.score ?? 0) + "/10";
-    root.querySelector(".topicScore").textContent = data.score ?? 0;
-    root.querySelector(".topicNeed").value = data.need ?? "";
-    root.querySelector(".topicOffer").value = data.offer ?? "";
-    root.querySelector(".topicProposal").value = data.proposal ?? "";
-    root.querySelector(".topicLimit").value = data.limit ?? "";
-    root.querySelector(".topicTherapy").value = data.therapy ?? "";
+
+    root.querySelector(".q1Range").value = data.q1 ?? 0;
+    root.querySelector(".q1Value").textContent = (data.q1 ?? 0) + "/10";
+    root.querySelector(".q2Range").value = data.q2 ?? 0;
+    root.querySelector(".q2Value").textContent = (data.q2 ?? 0) + "/10";
+    root.querySelector(".topic-score").textContent = data.q1 ?? 0;
+
+    root.querySelector(".q3Text").value = data.q3 ?? "";
+    root.querySelector(".q4Text").value = data.q4 ?? "";
   }
 }
 
@@ -141,21 +207,39 @@ function buildTopicsUI(){
     const node = topicTemplate.content.cloneNode(true);
     const details = node.querySelector("details");
     details.dataset.topic = t.id;
+
     node.querySelector(".topic-name").textContent = t.name;
     node.querySelector(".topic-score").textContent = "0";
-    const range = node.querySelector(".topicRange");
-    const rv = node.querySelector(".topicRangeValue");
-    const score = node.querySelector(".topic-score");
-    range.addEventListener("input", () => {
-      rv.textContent = range.value + "/10";
-      score.textContent = range.value;
+
+    node.querySelector(".q1Label").textContent = t.q1;
+    node.querySelector(".q2Label").textContent = t.q2;
+    node.querySelector(".q3Label").textContent = t.q3;
+    node.querySelector(".q4Label").textContent = t.q4;
+
+    const q1Range = node.querySelector(".q1Range");
+    const q1Value = node.querySelector(".q1Value");
+    const q2Range = node.querySelector(".q2Range");
+    const q2Value = node.querySelector(".q2Value");
+    const pillScore = node.querySelector(".topic-score");
+
+    q1Range.addEventListener("input", () => {
+      q1Value.textContent = q1Range.value + "/10";
+      pillScore.textContent = q1Range.value;
       if(state.draft){
-        state.draft.topics[t.id].score = Number(range.value);
+        state.draft.topics[t.id].q1 = Number(q1Range.value);
         touchDraft();
       }
     });
-    // Textareas
-    const bind = (cls, key) => {
+
+    q2Range.addEventListener("input", () => {
+      q2Value.textContent = q2Range.value + "/10";
+      if(state.draft){
+        state.draft.topics[t.id].q2 = Number(q2Range.value);
+        touchDraft();
+      }
+    });
+
+    const bindText = (cls, key) => {
       const el = node.querySelector(cls);
       el.addEventListener("input", () => {
         if(state.draft){
@@ -164,17 +248,14 @@ function buildTopicsUI(){
         }
       });
     };
-    bind(".topicNeed", "need");
-    bind(".topicOffer", "offer");
-    bind(".topicProposal", "proposal");
-    bind(".topicLimit", "limit");
-    bind(".topicTherapy", "therapy");
+    bindText(".q3Text", "q3");
+    bindText(".q4Text", "q4");
 
     topicsContainer.appendChild(node);
   }
 }
 
-function touchDraft(){
+function touchDraft(){(){
   if(!state.draft) return;
   state.draft.updatedAt = nowISO();
   // Persist if enabled
@@ -303,7 +384,7 @@ btnSaveDraft.addEventListener("click", () => {
   if(!state.draft) return;
   state.draft.fields = getFormData();
   touchDraft();
-  alert("Borrador guardado.");
+  alert("Guardado. Puedes seguir.");
 });
 
 btnFinish.addEventListener("click", () => {
@@ -321,7 +402,7 @@ btnFinish.addEventListener("click", () => {
   state.draft.updatedAt = nowISO();
   if(state.settings.saveEnabled) saveState(state);
   renderSidebar();
-  alert("Sesión guardada en el historial.");
+  alert("Sesión guardada en el historial (puedes compararla después).");
 });
 
 // Start / continue
@@ -343,6 +424,8 @@ function openDraft(){
   refreshRangeValues();
   setAutosave(state.settings.saveEnabled ? ("guardado " + fmtDate(state.draft.updatedAt)) : "guardado desactivado");
   // jump to M1
+  workspace.scrollIntoView({behavior:'smooth', block:'start'});
+  
   document.querySelector('.tab[data-tab="m1"]').click();
 }
 
@@ -394,7 +477,7 @@ btnCompare.addEventListener("click", () => {
     ["m1_desire","Deseo de seguir"],
     ["m1_hope","Confianza en que mejore"],
     ["m1_fatigue","Cansancio emocional"],
-    ["m1_activation","Activación"],
+    ["m1_activation","Alteración emocional"],
   ];
   const table = document.createElement("table");
   table.style.width = "100%";
@@ -418,11 +501,11 @@ btnCompare.addEventListener("click", () => {
   // Compare topic scores (diff)
   const diffWrap = document.createElement("div");
   diffWrap.style.marginTop = "12px";
-  diffWrap.innerHTML = "<h3 style='margin:8px 0'>Temas (diferencia de gravedad)</h3>";
+  diffWrap.innerHTML = "<h3 style='margin:8px 0'>Temas (cambio en importancia)</h3>";
   const ul = document.createElement("ul");
   for(const t of DEFAULT_TOPICS){
-    const sa = a.topics?.[t.id]?.score ?? 0;
-    const sb = b.topics?.[t.id]?.score ?? 0;
+    const sa = a.topics?.[t.id]?.q1 ?? 0;
+    const sb = b.topics?.[t.id]?.q1 ?? 0;
     const li = document.createElement("li");
     const delta = sb - sa;
     const sign = delta>0 ? "+" : "";
@@ -480,12 +563,15 @@ function buildReportHTML(snap){
     const d = topics[t.id] || {};
     return `
       <tr>
-        <td><b>${esc(t.name)}</b><div class="small">Gravedad: ${esc(d.score ?? 0)}/10</div></td>
-        <td>${lineBreaks(d.need)}</td>
-        <td>${lineBreaks(d.offer)}</td>
-        <td>${lineBreaks(d.proposal)}</td>
-        <td>${lineBreaks(d.limit)}</td>
-        <td>${lineBreaks(d.therapy)}</td>
+        <td>
+          <b>${esc(t.name)}</b>
+          <div class="small" style="margin-top:6px">${esc(t.q1)}</div>
+          <div class="small"><b>${esc(d.q1 ?? 0)}/10</b></div>
+          <div class="small" style="margin-top:6px">${esc(t.q2)}</div>
+          <div class="small"><b>${esc(d.q2 ?? 0)}/10</b></div>
+        </td>
+        <td><b>${esc(t.q3)}</b><br/>${lineBreaks(d.q3)}</td>
+        <td><b>${esc(t.q4)}</b><br/>${lineBreaks(d.q4)}</td>
       </tr>
     `;
   }).join("");
@@ -521,7 +607,7 @@ function buildReportHTML(snap){
         <div><b>Deseo de seguir</b>: ${esc(f.m1_desire)}/10</div>
         <div><b>Confianza en que mejore</b>: ${esc(f.m1_hope)}/10</div>
         <div><b>Cansancio emocional</b>: ${esc(f.m1_fatigue)}/10</div>
-        <div><b>Activación</b>: ${esc(f.m1_activation)}/10</div>
+        <div><b>Alteración emocional</b>: ${esc(f.m1_activation)}/10</div>
       </div>
       <div style="margin-top:8px"><b>Miedo principal</b>: ${esc(f.m1_main_fear)}</div>
       <div style="margin-top:8px"><b>Necesito que pase</b>:<br/>${lineBreaks(f.m1_need_phrase)}</div>
@@ -548,7 +634,7 @@ function buildReportHTML(snap){
       <h2 style="margin:0 0 8px 0">M4. Temas ineludibles</h2>
       <table>
         <tr>
-          <th>Tema</th><th>Necesito</th><th>Ofrezco</th><th>Propongo</th><th>Límite</th><th>Para terapia</th>
+          <th>Tema</th><th>Reflexión 1</th><th>Reflexión 2</th>
         </tr>
         ${topicRows}
       </table>
@@ -579,3 +665,25 @@ btnClosePrivacy.addEventListener("click", () => privacyDialog.close());
 
 // Init default UI
 renderSidebar();
+
+// Prev/Next navigation
+const TAB_KEYS = ["m1","m2","m3","m4","m5","m6"];
+function currentTabKey(){
+  const active = document.querySelector(".tab.active");
+  return active ? active.dataset.tab : "m1";
+}
+function goTab(key){
+  const btn = document.querySelector(`.tab[data-tab="${key}"]`);
+  if(btn) btn.click();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+btnPrev.addEventListener("click", () => {
+  const k = currentTabKey();
+  const idx = TAB_KEYS.indexOf(k);
+  if(idx > 0) goTab(TAB_KEYS[idx-1]);
+});
+btnNext.addEventListener("click", () => {
+  const k = currentTabKey();
+  const idx = TAB_KEYS.indexOf(k);
+  if(idx >= 0 && idx < TAB_KEYS.length-1) goTab(TAB_KEYS[idx+1]);
+});

@@ -12,6 +12,7 @@
 *{box-sizing:border-box}
 body{
   margin:0;
+  font-size: 18px;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background: linear-gradient(180deg, #0b0d12, #0b0d12 35%, #0d1120);
   color:var(--text);
@@ -108,4 +109,12 @@ dialog{
   .app-header,.tabs,.footer-bar,#introCard,.grid,#compareCard,button{display:none !important}
   .card{box-shadow:none;border:none}
   textarea,select,input{border:1px solid #ccc;color:black;background:white}
+}
+
+.lead{color:#dbe4f7; line-height:1.5; font-size: 0.98em; margin-top:8px}
+.module-intro{border:1px dashed var(--border); border-radius:12px; padding:10px; margin-top:10px; background:#0f1526}
+.small-note{font-size:12px}
+@media (max-width: 520px){
+  .app-header{position:static}
+  button{padding:12px 14px}
 }

@@ -1,4 +1,4 @@
-# Brújula – Conversación decisiva (100% local)
+# Brújula – Conversaciones incómodas (100% local)
 
 App simple (sin backend) para que cada persona llegue a una conversación decisiva con claridad:
 - Radar emocional
